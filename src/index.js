@@ -2,12 +2,13 @@ var Promise = require('promise');
 var fs = require('fs');
 var rest = require('restler');
 var request = require('request');
+var sanitize = require("sanitize-filename");
 var ffmetadata = require('ffmetadata');
 
 var program = require('commander');
 
 program
-  .version('0.0.1')
+  .version('0.0.2')
   .usage('[options] <trackUrl>')
   .option('-c, --client-id <clientId>', 'A Soundcloud API client ID')
   .parse(process.argv);
@@ -33,7 +34,8 @@ if(!clientId){
 fetchTrack(url).then(function (data) {
   trackData = data;
   var streamUrl = data.stream_url + '?client_id=' + clientId;
-  filename = [data.user.username, data.title].join(' - ') + '.mp3';
+  filename = sanitize([data.user.username, data.title].join(' - ')) + '.mp3';
+  console.log(`Saved to ${filename}`);
   return download(streamUrl, filename);
 }).then(function () {
   return writeMetadata(filename, trackData);
