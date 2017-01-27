@@ -10,13 +10,13 @@ The file will be named after the track and artist names and downloaded in the /d
 
 
 ```
-$ docker run --rm -v $(pwd):/download garphy/soundload --client-id [client-id] [url]
+$ docker run --rm -v $(pwd):/download garphy/soundloader --client-id [client-id] [url]
 ```
 
 Reference
 ---------
 ```
-$ docker run --rm -v $(pwd):/download garphy/soundload --help
+$ docker run --rm -v $(pwd):/download garphy/soundloader --help
 
   Usage: index [options] <trackUrl>
 
